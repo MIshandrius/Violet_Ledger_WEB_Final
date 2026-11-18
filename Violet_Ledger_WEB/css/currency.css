@@ -1,0 +1,99 @@
+/* A compact addition to the existing budget workspace. */
+.currency-panel {
+    padding: clamp(1.4rem, 4vw, 2.5rem);
+}
+
+.currency-panel .section-heading {
+    align-items: center;
+}
+
+.currency-icon {
+    display: grid;
+    flex: 0 0 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 1rem;
+    color: var(--purple-800);
+    background: var(--purple-100);
+    font-size: 1.65rem;
+}
+
+.currency-fields {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+.currency-fields > * {
+    min-width: 0;
+}
+
+.currency-error {
+    min-height: 1.3em;
+    color: var(--red);
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.currency-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-block: .5rem 1.25rem;
+}
+
+.currency-actions button {
+    width: auto;
+    margin-top: 0;
+}
+
+.currency-actions button:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+.currency-estimate {
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    background: var(--purple-50);
+    border: 1px solid var(--border);
+}
+
+.currency-result {
+    display: block;
+    overflow-wrap: anywhere;
+    color: var(--purple-800);
+    font-size: clamp(1.15rem, 3vw, 1.65rem);
+    font-weight: 800;
+}
+
+.currency-estimate p {
+    margin-bottom: 0;
+    color: var(--ink-soft);
+}
+
+.currency-source {
+    margin: .75rem 0 0;
+    color: var(--ink-soft);
+    font-size: .8rem;
+}
+
+.night-theme .currency-estimate {
+    background: #21162e;
+}
+
+.night-theme .currency-result {
+    color: #ddd0ff;
+}
+
+.night-theme .currency-error {
+    color: #ffb8ca;
+}
+
+@media (max-width: 650px) {
+    .currency-fields { grid-template-columns: 1fr 1fr; }
+    .currency-amount-field { grid-column: 1 / -1; }
+    .currency-actions button { flex: 1 1 10rem; }
+}

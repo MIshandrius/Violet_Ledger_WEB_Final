@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A simple student budget planner with browser-local demo accounts.">
+  <title>Profile · Violet Ledger</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/account.css">
+  <script defer src="../js/advanced.js"></script>
+  <script defer src="../js/auth.js"></script>
+</head>
+<body class="page-layout" data-page="profile">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header id="main-header">
+    <nav class="site-nav navbar navbar-expand-lg" aria-label="Main navigation">
+      <a class="brand navbar-brand" href="index.html" aria-label="Violet Ledger home"><span class="brand-mark" aria-hidden="true">V</span><span>Violet Ledger</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+        <ul class="nav-links navbar-nav"><li class="nav-item"><a class="nav-link" href="index.html">Monthly budget</a></li>
+<li class="nav-item"><a class="nav-link" href="expenses.html">Expenses</a></li>
+<li class="nav-item"><a class="nav-link" href="bills.html">Bills &amp; debt</a></li>
+<li class="nav-item"><a class="nav-link" href="save.html">Savings</a></li>
+<li class="nav-item"><a class="nav-link" href="account.html">Account</a></li>
+<li class="nav-item"><a class="nav-link active" href="profile.html" aria-current="page">Profile</a></li></ul>
+      </div>
+    </nav>
+  </header>
+  <aside class="page-sidebar" aria-label="Planner sidebar">
+    <p class="eyebrow">Your workspace</p><h2>One step closer.</h2>
+    <nav aria-label="Planner sections"><ul class="sidebar-links"><li><a href="index.html">Monthly budget</a></li>
+<li><a href="expenses.html">Expenses</a></li>
+<li><a href="bills.html">Bills &amp; debt</a></li>
+<li><a href="save.html">Savings goals</a></li>
+<li><a href="account.html">Account</a></li>
+<li><a href="profile.html" aria-current="page">Profile</a></li></ul></nav>
+    <div class="sidebar-note"><strong>A little, often.</strong><p>Review your plan. Record your spending. Celebrate your progress.</p><a href="index.html#inspiration">Explore the inspiration gallery →</a></div>
+    <p class="demo-note">This classroom project saves data in your browser. Use sample account details.</p>
+  </aside>
+  <main id="main-content">
+    <section id="wallpaper_profile">
+      <section class="wrapper account-intro" aria-labelledby="profile-title">
+      <p class="eyebrow">Your personal corner</p>
+      <h1 id="profile-title">Your profile.</h1>
+      <p class="lead">A familiar starting point for your next money check-in.</p>
+      </section>
+    </section>
+    <div class="wrapper"><p id="profile-notice" class="account-status" role="status"></p></div>
+    <section class="wrapper account-layout" aria-label="Profile and browser workspace">
+      <div class="panel profile-panel">
+        <section id="profile-guest" aria-labelledby="guest-title">
+          <span class="profile-avatar" aria-hidden="true">V</span>
+          <h2 id="guest-title" class="mt-3">Make yourself at home</h2>
+          <p>Log in to view your saved name, email and phone number. New here? Create a demo account first.</p>
+          <a id="profile-login-link" class="btn btn-primary bootstrap-primary-like" href="account.html">Open account page</a>
+        </section>
+        <section id="profile-details" aria-labelledby="profile-name" hidden>
+          <div class="profile-heading"><span id="profile-avatar" class="profile-avatar" aria-hidden="true">V</span><div><p class="eyebrow">Welcome back</p><h2 id="profile-name"></h2></div></div>
+          <dl class="profile-fields">
+            <div><dt>Email</dt><dd id="profile-email"></dd></div>
+            <div><dt>Phone number</dt><dd id="profile-phone"></dd></div>
+            <div><dt>Account created</dt><dd id="profile-joined"></dd></div>
+          </dl>
+          <div class="profile-actions"><a class="btn btn-primary bootstrap-primary-like" href="index.html">Plan this month</a><button id="logout-button" class="btn btn-outline-primary" type="button">Log out</button></div>
+          <p class="form-note mt-3">This is a local demo account, available only in this browser.</p>
+        </section>
+      </div>
+      <aside id="browser-summary" class="panel profile-summary" aria-labelledby="workspace-title">
+        <figure class="account-figure"><img src="../img/card-savings.jpg" alt="A savings jar for future goals" width="600" height="450" loading="lazy"></figure>
+        <p class="eyebrow">Keep the routine going</p><h2 id="workspace-title">In this browser</h2>
+        <p>These planner records are shared in this browser and remain after logging out.</p>
+        <div class="summary-item"><span id="profile-income" class="summary-value">No budget yet</span><p>Saved monthly income</p><a href="index.html#budget-form">Review your budget →</a></div>
+        <div class="summary-item"><span id="profile-expense-count" class="summary-value">0</span><p>Purchases you added, excluding examples</p><a href="expenses.html">Open your expense log →</a></div>
+      </aside>
+    </section>
+  </main>
+  <footer><div class="wrapper footer-inner"><div><strong>Violet Ledger</strong><p>A student front-end project about money habits.</p></div><p>Team members: Zhasmina, Aknur</p></div></footer>
+  <script src="../vendor/bootstrap.bundle.min.js"></script>
+</body>
+</html>
