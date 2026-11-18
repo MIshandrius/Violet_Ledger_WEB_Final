@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="description" content="Violet Ledger helps students plan a budget, track expenses and bills, and build savings habits.">
+<title>Daily Expense Log · Violet Ledger</title>
+<link href="../vendor/bootstrap.min.css" rel="stylesheet"/><link href="../css/style.css" rel="stylesheet"/>
+
+<script src="../vendor/jquery-4.0.0.min.js"></script>
+<script defer src="../js/storage.js?v=bill-drafts-1"></script>
+<script defer src="../js/validation.js?v=bill-drafts-1"></script>
+<script defer src="../js/calc.js?v=bill-drafts-1"></script>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><script defer="" src="../js/ui.js?v=bill-drafts-1"></script><script defer src="../js/advanced.js?v=bill-drafts-1"></script>
+<script defer src="../js/script.js?v=bill-drafts-1"></script>
+<script defer src="../js/jquery-ux.js?v=bill-drafts-1"></script><link rel="icon" href="data:,"/>
+</head>
+<body class="page-layout" data-page="expenses"><a class="skip-link" href="#main-content">Skip to content</a>
+<header id="main-header">
+
+<nav aria-label="Main navigation" class="site-nav navbar navbar-expand-lg">
+<a aria-label="Violet Ledger home" class="brand navbar-brand" href="index.html">
+<span aria-hidden="true" class="brand-mark">V</span>
+<span>Violet Ledger</span>
+</a>
+<button aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#mainNavbar" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+<div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+<ul class="nav-links navbar-nav">
+<li class="nav-item"><a class="nav-link" href="index.html">Monthly budget</a></li>
+<li class="nav-item"><a aria-current="page" class="nav-link active" href="expenses.html">Expenses</a></li>
+<li class="nav-item"><a class="nav-link" href="bills.html">Bills &amp; debt</a></li>
+<li class="nav-item"><a class="nav-link" href="save.html">Savings</a></li>
+<li class="nav-item"><a class="nav-link" href="account.html">Account</a></li>
+<li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+</ul>
+</div>
+</nav></header>
+<aside aria-label="Planner sidebar" class="page-sidebar"><p class="eyebrow">Your workspace</p><h2>One step closer.</h2><nav aria-label="Planner sections"><ul class="sidebar-links"><li><a href="index.html">Monthly budget</a></li><li><a aria-current="page" href="expenses.html">Daily expenses</a></li><li><a href="bills.html">Bills &amp; debt</a></li><li><a href="save.html">Savings goals</a></li><li><a href="account.html">Sign up / Log in</a></li><li><a href="profile.html">My profile</a></li></ul></nav><div class="sidebar-note"><strong>A little, often.</strong><p>Review your plan. Record your spending. Celebrate your progress.</p><a href="index.html#inspiration">Explore the inspiration gallery →</a></div><p class="demo-note">Your expenses are saved in this browser. Log in to keep them in your own account.</p></aside><main id="main-content">
+<section id="wallpaper_expense">
+<section aria-labelledby="expense-title" class="page-intro compact-intro wrapper">
+<div class="intro-copy">
+<h1 id="expense-title">Daily Expense Log</h1>
+<ul aria-label="Expense log features" class="feature-list">
+<li>Date and item recorded together</li>
+<li>Clear spending categories</li>
+<li>Live running total</li>
+</ul>
+</div>
+</section>
+</section>
+<section aria-label="Expense entry and running total" class="wrapper expense-layout">
+<div class="panel expense-form-panel p-4">
+<div class="section-heading">
+<div>
+<p class="eyebrow">New purchase</p>
+<h2>Add an expense</h2>
+</div>
+<span class="date-chip" id="today-chip">Today</span>
+</div>
+<form id="expense-form" novalidate>
+<div class="field-grid expense-fields gap-3">
+<label class="mb-2">
+                            Date
+                            <input class="form-control" id="expense-date" name="date" type="date"/>
+</label>
+<label class="mb-2">
+                            Item
+                            <input class="form-control" id="expense-item" name="item" placeholder="e.g. Lunch" type="text"/>
+</label>
+<label class="mb-2">
+                            Category
+                            <select class="form-select" id="expense-category" name="category">
+<option value="Food">Food</option>
+<option value="Transport">Transport</option>
+<option value="Home">Home</option>
+<option value="Fun">Fun</option>
+<option value="Other">Other</option>
+</select>
+</label>
+<label class="mb-2">
+                            Payment method
+                            <select class="form-select" id="payment-method" name="payment">
+<option value="Card">Card</option>
+<option value="Cash">Cash</option>
+<option value="Transfer">Transfer</option>
+</select>
+</label>
+<label class="field-wide mb-2">
+                            Amount
+                            <input class="form-control" id="expense-amount" placeholder="₸" step="0.01" type="number"/>
+</label>
+</div>
+<button class="btn btn-primary btn-lg bootstrap-primary-like" type="submit">Add to expense log</button>
+<p aria-live="polite" class="form-note" id="expense-message">Complete the fields to add a purchase.</p>
+</form>
+</div>
+<aside aria-labelledby="running-title" class="panel running-card p-4">
+<p class="eyebrow">Running total</p>
+<h2 id="running-title">Logged spending</h2>
+<p aria-live="polite" class="balance" id="expense-total"></p>
+<button class="copy-button" type="button" data-copy-target="#expense-total" aria-label="Copy logged spending">Copy total</button>
+<div class="category-breakdown"><div><span>Home</span><strong id="home-total"></strong></div><div><span>Other</span><strong id="other-total"></strong></div>
+<div><span><i class="dot food-dot"></i>Food</span><strong id="food-total"></strong></div>
+<div><span><i class="dot transport-dot"></i>Transport</span><strong id="transport-total"></strong></div>
+<div><span><i class="dot fun-dot"></i>Fun</span><strong id="fun-total"></strong></div>
+</div>
+</aside>
+</section>
+<section aria-labelledby="log-title" class="wrapper section-block py-4 py-lg-5">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Your purchases</p><h2 id="log-title">Expense log</h2></div>
+<button class="btn btn-outline-primary quiet-button" id="clear-expenses" type="button">Clear expenses</button>
+</div>
+
+<div class="expense-filters">
+  <label for="filter-category">Show category<select id="filter-category" class="form-select"><option>All</option><option>Food</option><option>Transport</option><option>Home</option><option>Fun</option><option>Other</option></select></label>
+  <div class="search-field-wrap"><label for="filter-search">Search purchases</label><input id="filter-search" class="form-control" type="search" placeholder="Find an item…" aria-describedby="filter-summary"/>
+    <div id="expense-suggestions" class="search-suggestions" role="listbox" aria-label="Suggested purchases" hidden></div>
+  </div>
+  <p id="filter-summary" role="status" aria-live="polite"></p>
+</div>
+<p id="expense-empty" class="search-empty">No expenses yet. Add your first purchase above.</p>
+<button class="copy-button" type="button" data-copy-target="#filter-summary">Copy filtered summary</button>
+<div class="table-wrap">
+<table class="expense-table">
+<caption>Daily expenses</caption>
+<thead>
+<tr><th scope="col">Date</th><th scope="col">Item</th><th scope="col">Category</th><th scope="col">Payment</th><th scope="col">Amount</th><th scope="col"><span class="visually-hidden">Action</span></th></tr>
+</thead>
+<tbody id="expense-rows"></tbody>
+</table>
+</div>
+</section>
+<section aria-label="Expense tips and feedback form" class="wrapper split-section">
+<article class="panel tips-card p-4">
+<p class="eyebrow">Build the habit</p>
+<h2>How to use this log</h2>
+<ol class="numbered-list compact-list">
+<li><span>01</span><div><strong>Add purchases daily</strong><p>Do not wait until the end of the week.</p></div></li>
+<li><span>02</span><div><strong>Choose one category</strong><p>Consistent labels make patterns visible.</p></div></li>
+<li><span>03</span><div><strong>Check the total</strong><p>Compare it with your monthly plan.</p></div></li>
+</ol>
+</article>
+<article class="panel feedback-card p-4" id="feedback">
+<p class="eyebrow">Contact the team</p>
+<h2>We would love your feedback</h2>
+
+<button aria-controls="feedback-dialog" aria-haspopup="dialog" class="btn btn-primary bootstrap-primary-like feedback-open" type="button">Open feedback form</button><div class="feedback-overlay" hidden="" id="feedback-overlay"><div aria-labelledby="feedback-dialog-title" aria-modal="true" class="panel feedback-dialog p-4" id="feedback-dialog" role="dialog" tabindex="-1"><button aria-label="Close feedback form" class="feedback-close" type="button">×</button><h2 id="feedback-dialog-title">Share your feedback</h2><p>Tell us what you think about Violet Ledger.</p><form id="feedback-form" novalidate>
+<div class="field-grid gap-3">
+<label class="mb-2">Name<input class="form-control" id="feedback-name" name="name" placeholder="Your name" type="text"/></label>
+<label class="mb-2">Email<input class="form-control" name="email" placeholder="name@example.com" type="text" inputmode="email"/></label>
+<label class="mb-2">
+                            Favorite page
+                            <select class="form-select" name="favorite-page">
+<option value="">Choose a page</option>
+<option>Monthly Budget Overview</option>
+<option>Daily Expense Log</option>
+<option>Savings Goals</option>
+<option>Account</option>
+<option>Profile</option>
+</select>
+</label>
+<label class="mb-2">
+                            Favorite accent color
+                            <input aria-label="Choose your favorite accent color" class="color-input form-control form-control-color" name="accent-color" type="color" value="#7c3aed"/>
+</label>
+<label class="field-wide mb-2">Message<textarea class="form-control" name="message" placeholder="What would make the planner more useful?" rows="4"></textarea></label>
+</div>
+<button class="btn btn-primary btn-sm bootstrap-primary-like" type="submit">Preview feedback</button>
+<p aria-live="polite" class="form-note" id="feedback-message"></p>
+</form></div></div></article>
+</section>
+<section aria-labelledby="tools-title" class="wrapper section-block py-4 py-lg-5"><p class="eyebrow">Build your routine</p><h2 id="tools-title">Small steps. Better habits.</h2><div class="card-row"><article class="tool-card"><div class="image-slot image-ready"><img alt="Track the little things" loading="lazy" src="../img/card-expenses.jpg"/></div><div class="card-content"><h3>Track the little things</h3><p>Record everyday purchases and see where your money goes.</p><a class="btn btn-primary bootstrap-primary-like" href="expenses.html">Log an expense</a></div></article><article class="tool-card"><div class="image-slot image-ready"><img alt="Stay ahead of bills" loading="lazy" src="../img/card-bills.jpg"/></div><div class="card-content"><h3>Stay ahead of bills</h3><p>Keep loans and bills together, then record each payment.</p><a class="btn btn-primary bootstrap-primary-like" href="bills.html">Review bills</a></div></article><article class="tool-card"><div class="image-slot image-ready"><img alt="Make room for tomorrow" loading="lazy" src="../img/card-savings.jpg"/></div><div class="card-content"><h3>Make room for tomorrow</h3><p>Give your next milestone a target and track your savings.</p><a class="btn btn-primary bootstrap-primary-like" href="save.html">Set a goal</a></div></article></div></section></main>
+<footer>
+<div class="wrapper footer-inner">
+<div><strong>Violet Ledger</strong><p>A student front-end project about money habits.</p></div>
+<p>Team members: Zhasmina, Aknur</p>
+</div>
+</footer>
+<script src="../vendor/bootstrap.bundle.min.js"></script></body>
+</html>
