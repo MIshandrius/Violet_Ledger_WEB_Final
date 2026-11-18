@@ -57,24 +57,3 @@ Unsubmitted bill entries and payments are saved separately for each account or t
 
 For a savings goal, choose **Update saved amount** and enter the full saved total. Its status and achieved milestone update together. **Delete** removes one goal. Clearing all bills or all goals asks for confirmation before changing saved data.
 
-This is a classroom authentication simulation: demo passwords are stored locally as plain text. Use sample details and a password you do not use elsewhere, such as `Violet123!`. Signup accepts 10–15 phone digits with an optional country code. Feedback is a local preview and sends no message. The money coach calculates locally, and optional sound starts after the user enables it.
-
-## Verification
-
-Checked all six pages in Chrome at 375, 768 and 1280 pixels wide. Browser checks covered signup/login/logout, inline errors, calculations, saved records after reload, search, theme persistence, mobile navigation and bundled jQuery. The live currency API loaded successfully; controlled failure checks verified retry and saved-rate messages. Additional workflow checks covered savings edits and deletion, achieved milestones after reload, both clearing-confirmation outcomes, overpayment rejection, optional example bills and preservation of existing records. Two-account browser checks also verified empty new workspaces, independent records, logout/login restoration, guest preservation, stale-tab write protection and Back navigation. Activity checks verified per-account timestamps and persistence, successful-action logging, silent invalid/cancelled operations, same-page and cross-tab history refresh, the 100-entry limit, and empty new expense lists with legitimate saved purchases preserved. JavaScript syntax, local links and asset paths also passed checks. Recheck the hosted address after deployment.
-
-## Host and submit
-
-These local changes still need to be pushed to the [team repository](https://github.com/MIshandrius/Violet_Ledger_WEB_Final) and deployed.
-
-- **GitHub Pages:** put the contents of this inner project folder at the repository root, including `html/`, `css/`, `js/`, `img/`, `sounds/` and `vendor/`. Push to the team's repository. In **Settings → Pages**, choose deployment from the branch and root folder. Open the resulting URL and check every page.
-- **Netlify:** upload this inner folder using manual deployment, or connect the repository with its site folder as the publish directory. No build command is needed.
-
-Before submission, check desktop and mobile layouts, both themes, signup/login/logout, switching between two accounts, invalid form errors, saved records after reload, search and the API. Confirm that images and navigation load from the hosted address, then submit the verified **live link** and **repository link** required by the project PDF.
-
-## Three-minute presentation
-
-1. **0:00–0:30:** explain the student audience, show the connected pages, mobile navigation and theme toggle.
-2. **0:30–1:15:** show an invalid signup, create a sample account, log in and display the profile.
-3. **1:15–2:15:** update a budget, add and filter a purchase, record a bill and a payment, then add a savings goal and update it to its target. Reload to demonstrate saved progress.
-4. **2:15–3:00:** demonstrate currency conversion and loading/error feedback, identify the API source, and finish with the verified live and repository links.
