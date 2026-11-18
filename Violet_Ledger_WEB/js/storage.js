@@ -49,7 +49,19 @@
     }
   }
 
-  window.LedgerStorage = { owner, isSignedIn: owner !== '', read, write };
+  function logActivity(message) {
+    if (!owner || typeof message !== 'string' || !message.trim() || !sameOwner()) return false;
+    const saved = read('violet-ledger-activity', []);
+    const history = Array.isArray(saved) ? saved.filter(entry =>
+      entry && typeof entry.message === 'string' && typeof entry.time === 'string' && Number.isFinite(Date.parse(entry.time))
+    ).slice(0, 99) : [];
+    history.unshift({ message: message.trim().slice(0, 250), time: new Date().toISOString() });
+    if (!write('violet-ledger-activity', history)) return false;
+    document.dispatchEvent(new Event('ledger:activity'));
+    return true;
+  }
+
+  window.LedgerStorage = { owner, isSignedIn: owner !== '', read, write, logActivity };
 
   const note = document.querySelector('.demo-note');
   if (note && ['budget', 'expenses', 'bills', 'savings'].includes(document.body.dataset.page)) {
@@ -62,7 +74,9 @@
   window.addEventListener('storage', event => {
     if (event.key === sessionKey || event.key === usersKey || event.key === null) sameOwner();
   });
-  window.addEventListener('pageshow', sameOwner);
+  window.addEventListener('pageshow', event => {
+    if (sameOwner() && event.persisted) logPageVisit();
+  });
   window.addEventListener('focus', sameOwner);
 
   function guardOldPage(event) {
@@ -72,5 +86,26 @@
   }
   for (const event of ['click', 'input', 'submit']) {
     document.addEventListener(event, guardOldPage, true);
+  }
+
+  function logPageVisit() {
+    const pages = {
+      budget: 'Monthly budget', expenses: 'Daily expenses', bills: 'Bills and debt',
+      savings: 'Savings goals', account: 'Account', profile: 'Profile'
+    };
+    const page = pages[document.body.dataset.page];
+    if (page) logActivity('Opened ' + page + '.');
+  }
+
+  // The login page leaves a one-time marker for the newly signed-in page.
+  if (owner) {
+    try {
+      const pendingLogin = sessionStorage.getItem('violet-ledger-login-event');
+      if (pendingLogin) {
+        sessionStorage.removeItem('violet-ledger-login-event');
+        if (pendingLogin === owner) logActivity('Logged in.');
+      }
+    } catch (_) { /* Page visits still work if session storage is blocked. */ }
+    logPageVisit();
   }
 })();

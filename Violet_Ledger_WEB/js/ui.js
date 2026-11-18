@@ -27,9 +27,12 @@
       });
     });
     try {
-      localStorage.setItem(expenseStorageKey, JSON.stringify(expenses));
+      const saved = window.LedgerStorage.write(expenseStorageKey, expenses);
+      if (!saved) console.warn('Unable to save expenses for the current account.');
+      return saved;
     } catch (error) {
       console.warn('Unable to save expenses:', error);
+      return false;
     }
   }
 
@@ -46,6 +49,12 @@
       const field = document.getElementById(category.toLowerCase() + '-total');
       if (field) field.textContent = money(totals[category]);
     }
+    const emptyMessage = document.getElementById('expense-empty');
+    emptyMessage.textContent = expenseRows.children.length === 0
+      ? 'No expenses yet. Add your first purchase above.'
+      : 'No purchases match. Try a different search or category.';
+    emptyMessage.hidden = expenseRows.children.length > 0;
+    document.getElementById('clear-expenses').disabled = expenseRows.children.length === 0;
   }
 
   // Saved and newly submitted expenses use the same row and Remove button.
@@ -68,7 +77,10 @@
     removeButton.setAttribute('aria-label', 'Remove ' + expense.item);
     removeButton.addEventListener('click', function () {
       row.remove();
-      saveExpenses();
+      const saved = saveExpenses();
+      if (saved && window.LedgerStorage.isSignedIn) {
+        window.LedgerStorage.logActivity('Removed expense "' + expense.item + '" for ' + money(expense.amount) + '.');
+      }
       updateExpenseSummary();
     });
     actionCell.appendChild(removeButton);
@@ -78,7 +90,7 @@
 
   function restoreExpenses() {
     try {
-      const expenses = JSON.parse(localStorage.getItem(expenseStorageKey) || '[]');
+      const expenses = window.LedgerStorage.read(expenseStorageKey, []);
       if (!Array.isArray(expenses)) return;
       for (const expense of expenses) {
         if (!expense || typeof expense.item !== 'string' || !expense.item.trim()) continue;
@@ -102,6 +114,7 @@
   if (expenseForm && expenseRows) {
     const dateField = document.getElementById('expense-date');
     dateField.value = today();
+    expenseRows.replaceChildren();
     restoreExpenses();
     updateExpenseSummary();
     expenseForm.addEventListener('submit', function (event) {
@@ -116,15 +129,25 @@
         payment: document.getElementById('payment-method').value,
         amount: amount
       });
-      saveExpenses();
+      const saved = saveExpenses();
+      if (saved && window.LedgerStorage.isSignedIn) {
+        window.LedgerStorage.logActivity('Added expense "' + item + '" for ' + money(amount) + '.');
+      }
       updateExpenseSummary();
-      document.getElementById('expense-message').textContent = 'Added ' + item + ' to your expense log.';
+      document.getElementById('expense-message').textContent = saved
+        ? 'Added ' + item + ' to your expense log.'
+        : 'Added ' + item + ' for this visit, but it could not be saved. Check your browser storage settings.';
       expenseForm.reset();
       dateField.value = today();
     });
     document.getElementById('clear-expenses').addEventListener('click', function () {
-      expenseRows.querySelectorAll('tr[data-added="true"]').forEach(function (row) { row.remove(); });
-      saveExpenses();
+      const addedRows = expenseRows.querySelectorAll('tr[data-added="true"]');
+      if (addedRows.length === 0) return;
+      addedRows.forEach(function (row) { row.remove(); });
+      const saved = saveExpenses();
+      if (saved && window.LedgerStorage.isSignedIn) {
+        window.LedgerStorage.logActivity('Cleared ' + addedRows.length + (addedRows.length === 1 ? ' expense.' : ' expenses.'));
+      }
       updateExpenseSummary();
     });
   }

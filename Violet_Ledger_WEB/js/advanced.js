@@ -32,6 +32,7 @@
     try {
       localStorage.setItem('violet-theme', dark ? 'dark' : 'light');
     } catch (_) { /* Keep the selected mode for this page. */ }
+    window.LedgerStorage.logActivity('Switched to ' + (dark ? 'dark' : 'light') + ' mode.');
   });
   applyTheme();
 
@@ -104,6 +105,7 @@
     const months = Number(get('coach-months').value);
     const money = value => '₸' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     result.textContent = `${name}, save ${money(amount)} each month for ${months} months toward ${goal}. Your planned total is ${money(amount * months)}.`;
+    window.LedgerStorage.logActivity('Created a savings plan for ' + goal + ': ' + money(amount) + ' per month for ' + months + ' months.');
     playSound();
   });
 

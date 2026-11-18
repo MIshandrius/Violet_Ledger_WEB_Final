@@ -120,7 +120,13 @@
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
-    if (!convert()) amount.focus();
+    if (!convert()) {
+      amount.focus();
+      return;
+    }
+    if (rateData && currencies.includes(from.value) && currencies.includes(to.value)) {
+      window.LedgerStorage.logActivity('Converted currency: ' + result.textContent + '.');
+    }
   });
   amount.addEventListener('input', convert);
   from.addEventListener('change', convert);
