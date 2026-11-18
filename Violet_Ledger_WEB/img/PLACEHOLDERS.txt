@@ -1,7 +1,0 @@
-Add your own JPEG photos with these exact filenames (case-sensitive).
-Cards: recommended 800 x 600 pixels. Gallery: recommended 800 x 800 pixels.
-Existing hero images are preserved from Assignment 1. No new images were generated.
-
-gallery-transport.jpg
-gallery-health.jpg
-Reload the page after adding files; each photo replaces its filename placeholder automatically.
