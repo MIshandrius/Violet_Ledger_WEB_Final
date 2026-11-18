@@ -8,9 +8,10 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="../vendor/bootstrap.min.css">
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/account.css">
-  <script defer src="../js/advanced.js"></script>
-  <script defer src="../js/auth.js"></script>
+  <link rel="stylesheet" href="../css/account.css?v=activity-1">
+  <script defer src="../js/storage.js?v=activity-1"></script>
+<script defer src="../js/advanced.js?v=activity-1"></script>
+  <script defer src="../js/auth.js?v=activity-1"></script>
 </head>
 <body class="page-layout" data-page="profile">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -48,7 +49,7 @@
       </section>
     </section>
     <div class="wrapper"><p id="profile-notice" class="account-status" role="status"></p></div>
-    <section class="wrapper account-layout" aria-label="Profile and browser workspace">
+    <section class="wrapper account-layout" aria-label="Profile and planner workspace">
       <div class="panel profile-panel">
         <section id="profile-guest" aria-labelledby="guest-title">
           <span class="profile-avatar" aria-hidden="true">V</span>
@@ -63,14 +64,14 @@
             <div><dt>Phone number</dt><dd id="profile-phone"></dd></div>
             <div><dt>Account created</dt><dd id="profile-joined"></dd></div>
           </dl>
-          <div class="profile-actions"><a class="btn btn-primary bootstrap-primary-like" href="index.html">Plan this month</a><button id="logout-button" class="btn btn-outline-primary" type="button">Log out</button></div>
-          <p class="form-note mt-3">This is a local demo account, available only in this browser.</p>
+          <div class="profile-actions"><a class="btn btn-primary bootstrap-primary-like" href="index.html">Plan this month</a><a class="btn btn-outline-primary" href="account.html">Activity history</a><button id="logout-button" class="btn btn-outline-primary" type="button">Log out</button></div>
+          <p class="form-note mt-3">This local demo account keeps its planner records separate from guest records and other accounts in this browser.</p>
         </section>
       </div>
       <aside id="browser-summary" class="panel profile-summary" aria-labelledby="workspace-title">
         <figure class="account-figure"><img src="../img/card-savings.jpg" alt="A savings jar for future goals" width="600" height="450" loading="lazy"></figure>
-        <p class="eyebrow">Keep the routine going</p><h2 id="workspace-title">In this browser</h2>
-        <p>These planner records are shared in this browser and remain after logging out.</p>
+        <p class="eyebrow">Keep the routine going</p><h2 id="workspace-title">Guest workspace</h2>
+        <p id="workspace-note">These are your guest records in this browser. Log in to use a separate account workspace.</p>
         <div class="summary-item"><span id="profile-income" class="summary-value">No budget yet</span><p>Saved monthly income</p><a href="index.html#budget-form">Review your budget →</a></div>
         <div class="summary-item"><span id="profile-expense-count" class="summary-value">0</span><p>Purchases you added, excluding examples</p><a href="expenses.html">Open your expense log →</a></div>
       </aside>
