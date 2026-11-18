@@ -19,6 +19,17 @@
 .account-figure figcaption { margin-top: .6rem; font-size: .85rem; color: var(--ink-soft); }
 .account-aside h2, .profile-summary h2 { font-size: 1.8rem; }
 .account-aside p:last-child { margin-bottom: 0; }
+.account-dashboard { display: grid; gap: 1.5rem; padding-block: 1rem 3rem; }
+.account-overview { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.account-overview h2, #account-email { overflow-wrap: anywhere; }
+.account-overview h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+.account-overview p:last-child { margin-bottom: 0; }
+.account-overview .account-status { flex-basis: 100%; }
+.account-overview .account-status:empty { display: none; }
+.account-activity { margin: 1rem 0 0; padding: 0; list-style: none; }
+.account-activity li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .4rem 1rem; padding-block: 1rem; border-top: 1px solid var(--border); }
+.account-activity p { margin: 0; overflow-wrap: anywhere; }
+.account-activity time { color: var(--ink-soft); font-size: .85rem; }
 .profile-heading { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
 .profile-heading h2 { margin: 0; overflow-wrap: anywhere; }
 .profile-avatar { display: grid; flex: 0 0 3.5rem; width: 3.5rem; height: 3.5rem; place-items: center; border-radius: 50%; background: var(--purple-100); color: var(--purple-900); font-size: 1.7rem; font-family: Georgia, serif; }
@@ -33,4 +44,4 @@
 .night-theme .account-status:not(:empty), .night-theme .profile-avatar { background: #3b2357; color: #eee8fa; }
 .night-theme .profile-summary .summary-value { color: #d6baff; }
 @media (max-width: 1050px) { .account-layout { grid-template-columns: minmax(0, 1fr); } .account-figure img { aspect-ratio: 16 / 8; } }
-@media (max-width: 520px) { .account-intro { padding-top: 1.5rem; } .account-layout { gap: 1rem; } .account-switch .btn { flex: 1; } }
+@media (max-width: 520px) { .account-intro { padding-top: 1.5rem; } .account-layout { gap: 1rem; } .account-switch .btn { flex: 1; } .account-activity li { grid-template-columns: minmax(0, 1fr); } }

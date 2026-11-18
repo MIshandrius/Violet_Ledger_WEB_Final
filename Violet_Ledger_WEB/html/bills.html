@@ -9,11 +9,12 @@
 <link href="../vendor/bootstrap.min.css" rel="stylesheet"/><link href="../css/style.css" rel="stylesheet"/>
 
 <script src="../vendor/jquery-4.0.0.min.js"></script>
-<script defer src="../js/validation.js"></script>
-<script defer src="../js/calc.js"></script>
-<script defer="" src="../js/ui.js"></script><script defer src="../js/advanced.js"></script>
-<script defer src="../js/script.js"></script>
-<script defer src="../js/jquery-ux.js"></script><link rel="icon" href="data:,"/>
+<script defer src="../js/storage.js?v=bill-drafts-1"></script>
+<script defer src="../js/validation.js?v=bill-drafts-1"></script>
+<script defer src="../js/calc.js?v=bill-drafts-1"></script>
+<script defer="" src="../js/ui.js?v=bill-drafts-1"></script><script defer src="../js/advanced.js?v=bill-drafts-1"></script>
+<script defer src="../js/script.js?v=bill-drafts-1"></script>
+<script defer src="../js/jquery-ux.js?v=bill-drafts-1"></script><link rel="icon" href="data:,"/>
 </head>
 <body class="page-layout" data-page="bills"><a class="skip-link" href="#main-content">Skip to content</a>
 <header id="main-header">
@@ -35,7 +36,7 @@
 </ul>
 </div>
 </nav></header>
-<aside aria-label="Planner sidebar" class="page-sidebar"><p class="eyebrow">Your workspace</p><h2>One step closer.</h2><nav aria-label="Planner sections"><ul class="sidebar-links"><li><a href="index.html">Monthly budget</a></li><li><a href="expenses.html">Daily expenses</a></li><li><a aria-current="page" href="bills.html">Bills &amp; debt</a></li><li><a href="save.html">Savings goals</a></li><li><a href="account.html">Sign up / Log in</a></li><li><a href="profile.html">My profile</a></li></ul></nav><div class="sidebar-note"><strong>A little, often.</strong><p>Review your plan. Record your spending. Celebrate your progress.</p><a href="index.html#inspiration">Explore the inspiration gallery →</a></div><p class="demo-note">Your records are saved in this browser. Tables start with example data.</p></aside><main id="main-content">
+<aside aria-label="Planner sidebar" class="page-sidebar"><p class="eyebrow">Your workspace</p><h2>One step closer.</h2><nav aria-label="Planner sections"><ul class="sidebar-links"><li><a href="index.html">Monthly budget</a></li><li><a href="expenses.html">Daily expenses</a></li><li><a aria-current="page" href="bills.html">Bills &amp; debt</a></li><li><a href="save.html">Savings goals</a></li><li><a href="account.html">Sign up / Log in</a></li><li><a href="profile.html">My profile</a></li></ul></nav><div class="sidebar-note"><strong>A little, often.</strong><p>Review your plan. Record your spending. Celebrate your progress.</p><a href="index.html#inspiration">Explore the inspiration gallery →</a></div><p class="demo-note">Your bills and payments are saved in this browser. Example data is optional.</p></aside><main id="main-content">
 <section id="wallpaper_bills">
     <section aria-labelledby="bill-title" class="page-intro wrapper">
     <div class="intro-copy">
@@ -61,6 +62,7 @@
 <span class="date-chip" id="today-chip">Today</span>
 </div>
 <form id="record-bill-form" novalidate>
+<p class="form-note">Your unfinished entry is saved in this workspace. Choose Record bill to update totals.</p>
 <div class="field-grid expense-fields gap-3">
 <label class="mb-2"> 
                                 Date 
@@ -88,10 +90,11 @@
 </label>
 <label class="field-wide mb-2"> 
                                 Amount 
-                                <input class="form-control" id="bill-amount" placeholder="₸" step="0.01" type="number"/>
+                                <input class="form-control" id="bill-amount" placeholder="₸" inputmode="decimal" type="text"/>
 </label>
 </div>
 <button class="btn btn-primary btn-lg bootstrap-primary-like" type="submit">Record bill</button>
+<p class="field-error" data-draft-status role="status"></p>
 <p aria-live="polite" class="form-note" id="record-bill-message">Fill the fields to register a bill or debt.</p>
 </form>
 </div>
@@ -100,22 +103,29 @@
 <div class="section-heading">
 <div>
 <p class="eyebrow">Pay down balance</p>
-<h2>Bill</h2>
+<h2>Record a payment</h2>
 </div>
 </div>
 <form id="pay-bill-form" novalidate>
+<p class="form-note">Your unfinished payment is saved in this workspace. Choose Apply payment to update totals.</p>
 <div class="field-grid gap-3">
 <label class="mb-2"> 
-                                Bill Name 
-                                <input class="form-control" id="payment-bill-name" name="bill_name" placeholder="Exact bill name to deduct from" type="text"/>
+                                Unpaid bill
+                                <select class="form-select" id="payment-bill-name" name="bill_name" aria-describedby="payment-bill-name-validation-error" disabled>
+                                    <option value="">Choose an unpaid bill</option>
+                                </select>
+                                <span class="field-error" id="payment-bill-name-validation-error" aria-live="polite"></span>
 </label>
 <label class="mb-2"> 
                                 Amount 
-                                <input class="form-control" id="payment-bill-amount" name="amount" placeholder="₸" step="0.01" type="number"/>
+                                <input class="form-control" id="payment-bill-amount" name="amount" placeholder="₸" inputmode="decimal" type="text" aria-describedby="payment-bill-limit payment-bill-amount-validation-error" disabled/>
+                                <span class="form-note" id="payment-bill-limit">Add a bill above, or load example bills below, to record a payment.</span>
+                                <span class="field-error" id="payment-bill-amount-validation-error" aria-live="polite"></span>
 </label>
 </div>
-<button class="btn btn-primary btn-sm bootstrap-primary-like" type="submit">Apply pay-off</button>
-<p aria-live="polite" class="form-note" id="pay-bill-message">Enter the name and amount to decrease the current remaining balance.</p>
+<button class="btn btn-primary btn-sm bootstrap-primary-like" id="pay-bill-submit" type="submit" disabled>Apply payment</button>
+<p class="field-error" data-draft-status role="status"></p>
+<p aria-live="polite" class="form-note" id="pay-bill-message">Choose an unpaid bill and enter a payment up to its remaining balance.</p>
 </form>
 </div>
 </div>
@@ -139,9 +149,12 @@
 <p class="eyebrow">Registry</p>
 <h2 id="log-title">All Bill &amp; Debt Records</h2>
 </div>
+<button class="btn btn-outline-primary quiet-button" id="load-example-bills" type="button">Load example data</button>
 <button class="btn btn-outline-primary quiet-button" id="clear-bills" type="button">
     Clear all records</button>
 </div>
+<p class="form-note" id="bills-empty">No bills yet. Add your first bill above, or choose Load example data to try the tracker.</p>
+<p class="form-note" id="bills-table-message" role="status"></p>
 <div class="table-wrap">
 <table class="expense-table">
 <caption>Bill and Debt Records</caption>
@@ -155,32 +168,7 @@
 <th scope="col">Status</th>
 </tr>
 </thead>
-<tbody id="bill-rows">
-<tr data-amount="150000" data-category="Loans" data-original="150000">
-<td>Sep 10</td>
-<td>Car Loan</td>
-<td><span class="category-tag food-tag">Loans</span></td>
-<td>Transfer</td>
-<td class="amount-cell">₸150,000.00</td>
-<td><span class="status under">Active</span></td>
-</tr>
-<tr data-amount="45000" data-category="Credits" data-original="45000">
-<td>Sep 12</td>
-<td>Kaspi Red</td>
-<td><span class="category-tag transport-tag">Credits</span></td>
-<td>Card</td>
-<td class="amount-cell">₸45,000.00</td>
-<td><span class="status under">Active</span></td>
-</tr>
-<tr data-amount="20000" data-category="Debts" data-original="20000">
-<td>Sep 14</td>
-<td>Friend Loan</td>
-<td><span class="category-tag fun-tag">Debts</span></td>
-<td>Cash</td>
-<td class="amount-cell">₸20,000.00</td>
-<td><span class="status under">Active</span></td>
-</tr>
-</tbody>
+<tbody id="bill-rows"></tbody>
 </table>
 </div>
 </section>
@@ -190,7 +178,7 @@
 <h2>Instructions</h2>
 <ol class="numbered-list compact-list">
 <li><span>01</span><div><strong>Keep track of current debt</strong><p>Record every loan, credit, or debt as soon as it is issued.</p></div></li>
-<li><span>02</span><div><strong>Continually add pay-offs</strong><p>Use the bill payment block to deduct payments and watch balances drop.</p></div></li>
+<li><span>02</span><div><strong>Record payments</strong><p>Choose an unpaid bill, check its remaining balance and enter your payment.</p></div></li>
 </ol>
 </article>
 <article class="panel feedback-card p-4" id="feedback">

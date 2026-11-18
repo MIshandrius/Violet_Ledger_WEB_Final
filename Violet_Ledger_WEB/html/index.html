@@ -9,12 +9,13 @@
 <link href="../css/currency.css" rel="stylesheet"/>
 
 <script src="../vendor/jquery-4.0.0.min.js"></script>
-<script defer src="../js/validation.js"></script>
-<script defer src="../js/calc.js"></script>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><script defer="" src="../js/ui.js"></script><script defer src="../js/advanced.js"></script>
-<script defer src="../js/script.js"></script>
-<script defer src="../js/jquery-ux.js"></script>
-<script defer src="../js/currency.js"></script><link rel="icon" href="data:,"/>
+<script defer src="../js/storage.js?v=bill-drafts-1"></script>
+<script defer src="../js/validation.js?v=bill-drafts-1"></script>
+<script defer src="../js/calc.js?v=bill-drafts-1"></script>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><script defer="" src="../js/ui.js?v=bill-drafts-1"></script><script defer src="../js/advanced.js?v=bill-drafts-1"></script>
+<script defer src="../js/script.js?v=bill-drafts-1"></script>
+<script defer src="../js/jquery-ux.js?v=bill-drafts-1"></script>
+<script defer src="../js/currency.js?v=bill-drafts-1"></script><link rel="icon" href="data:,"/>
 </head>
 <body class="page-layout" data-page="budget"><a class="skip-link" href="#main-content">Skip to content</a>
 <header id="main-header">
@@ -39,6 +40,15 @@ class="navbar-toggler" data-bs-target="#mainNavbar" data-bs-toggle="collapse" ty
 </div>
 </nav></header>
 <aside aria-label="Planner sidebar" class="page-sidebar"><p class="eyebrow">Your workspace</p><h2>One step closer.</h2><nav aria-label="Planner sections"><ul class="sidebar-links"><li><a aria-current="page" href="index.html">Monthly budget</a></li><li><a href="expenses.html">Daily expenses</a></li><li><a href="bills.html">Bills &amp; debt</a></li><li><a href="save.html">Savings goals</a></li><li><a href="account.html">Sign up / Log in</a></li><li><a href="profile.html">My profile</a></li></ul></nav><div class="sidebar-note"><strong>A little, often.</strong><p>Review your plan. Record your spending. Celebrate your progress.</p><a href="index.html#inspiration">Explore the inspiration gallery →</a></div><p class="demo-note">Your plan is saved in this browser. Tables also include example data.</p></aside><main id="main-content">
+<nav class="wrapper quick-links" aria-label="Quick access to your tools">
+  <a href="#monthly-planner">Monthly budget</a>
+  <a href="#currency">Currency converter</a>
+  <a href="expenses.html">Daily expenses</a>
+  <a href="bills.html">Bills &amp; debt</a>
+  <a href="save.html">Savings goals</a>
+  <a href="#money-coach">Savings coach</a>
+</nav>
+
 <section id="wallpaper_budget">
 <section aria-labelledby="page-title" class="page-intro wrapper">
 <div class="intro-copy">
@@ -53,7 +63,8 @@ class="navbar-toggler" data-bs-target="#mainNavbar" data-bs-toggle="collapse" ty
 </div>
 </section>
 </section>
-<section aria-label="Monthly budget calculator" class="container-fluid budget-bootstrap-shell py-3 py-lg-4">
+
+<section id="monthly-planner" aria-label="Monthly budget calculator" class="container-fluid budget-bootstrap-shell py-3 py-lg-4">
     
 <div class="row g-4 align-items-start budget-bootstrap-row">
     <div class="col-12 col-md-12 col-lg-6 budget-input-col">
@@ -99,29 +110,7 @@ class="navbar-toggler" data-bs-target="#mainNavbar" data-bs-toggle="collapse" ty
 <button class="copy-button" type="button" data-copy-target="#summary_total" aria-label="Copy money remaining">Copy balance</button>
 </aside>
 </div></div></div></section>
-<section aria-labelledby="comparison-title" class="wrapper section-block py-4 py-lg-5">
-<div class="section-heading">
-<div>
-<p class="eyebrow">Stay accountable</p>
-<h2 id="comparison-title">Planned vs. actual</h2>
-<p class="form-note">Example figures to show how a monthly review works.</p>
-</div>
-<a class="text-link" href="expenses.html">Open daily expense log <span aria-hidden="true">→</span></a></div>
-<div class="table-wrap">
-<table class="budget-table">
-<caption>September category comparison in Kazakhstani tenge</caption>
-<thead>
-<tr><th scope="col">Category</th><th scope="col">Planned</th><th scope="col">Actual</th><th scope="col">Status</th></tr>
-</thead>
-<tbody>
-<tr><td>Housing</td><td>₸180,000</td><td>₸180,000</td><td><span class="status on-track">On track</span></td></tr>
-<tr><td>Utilities</td><td>₸32,000</td><td>₸28,400</td><td><span class="status under">₸3,600 under</span></td></tr>
-<tr><td>Subscriptions</td><td>₸12,000</td><td>₸14,000</td><td><span class="status over">₸2,000 over</span></td></tr>
-<tr><td>Savings</td><td>₸90,000</td><td>₸90,000</td><td><span class="status on-track">Goal met</span></td></tr>
-</tbody>
-</table>
-</div>
-</section>
+
 <section class="wrapper section-block" id="currency" aria-labelledby="currency-title">
   <div class="panel currency-panel">
     <div class="section-heading">
@@ -195,15 +184,6 @@ class="navbar-toggler" data-bs-target="#mainNavbar" data-bs-toggle="collapse" ty
   </div>
 </section>
 
-<section class="wrapper section-block" aria-labelledby="stats-title">
-  <p class="eyebrow">A little perspective</p><h2 id="stats-title">Your workspace at a glance</h2>
-  <div class="ledger-stats">
-    <article class="stat-card"><span class="stat-value">4</span><p class="stat-label">Planning tools in one workspace</p></article>
-    <article class="stat-card"><span class="stat-value">₸10,150</span><p class="stat-label">Spending in the example expense log</p></article>
-    <article class="stat-card"><span class="stat-value">2</span><p class="stat-label">Example savings goals to explore</p></article>
-  </div>
-</section>
-    
 <section aria-label="Budget guidance and team information" class="wrapper split-section">
 <article class="panel routine-card">
 <p class="eyebrow">A simple routine</p>
@@ -216,6 +196,7 @@ class="navbar-toggler" data-bs-target="#mainNavbar" data-bs-toggle="collapse" ty
 </ol>
 </article>
 </section>
+
 <section aria-labelledby="tools-title" class="wrapper section-block"><p class="eyebrow">Build your routine</p><h2 class="mt-lg-0" id="tools-title">Small steps. Better habits.</h2><div class="row g-4">
     
      <div class="col-sm-12 col-md-6 col-lg-4">
@@ -235,7 +216,42 @@ class="navbar-toggler" data-bs-target="#mainNavbar" data-bs-toggle="collapse" ty
                         <div class="card-body card-content"><h3 class="card-title">Make room for tomorrow</h3>
                             <p class="card-text">Give your next milestone a target and track your savings.</p>
                             <a class="btn btn-primary btn-sm bootstrap-primary-like" href="save.html">Set a goal</a></div>
-                        </article></div></div></section><section aria-labelledby="gallery-title" class="wrapper section-block py-4 py-lg-5" id="inspiration">
+                        </article></div></div></section>
+
+<section aria-labelledby="comparison-title" class="wrapper section-block py-4 py-lg-5">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Stay accountable</p>
+<h2 id="comparison-title">Planned vs. actual</h2>
+<p class="form-note">Example figures to show how a monthly review works.</p>
+</div>
+<a class="text-link" href="expenses.html">Open daily expense log <span aria-hidden="true">→</span></a></div>
+<div class="table-wrap">
+<table class="budget-table">
+<caption>September category comparison in Kazakhstani tenge</caption>
+<thead>
+<tr><th scope="col">Category</th><th scope="col">Planned</th><th scope="col">Actual</th><th scope="col">Status</th></tr>
+</thead>
+<tbody>
+<tr><td>Housing</td><td>₸180,000</td><td>₸180,000</td><td><span class="status on-track">On track</span></td></tr>
+<tr><td>Utilities</td><td>₸32,000</td><td>₸28,400</td><td><span class="status under">₸3,600 under</span></td></tr>
+<tr><td>Subscriptions</td><td>₸12,000</td><td>₸14,000</td><td><span class="status over">₸2,000 over</span></td></tr>
+<tr><td>Savings</td><td>₸90,000</td><td>₸90,000</td><td><span class="status on-track">Goal met</span></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="wrapper section-block" aria-labelledby="stats-title">
+  <p class="eyebrow">A little perspective</p><h2 id="stats-title">Your workspace at a glance</h2>
+  <div class="ledger-stats">
+    <article class="stat-card"><span class="stat-value">4</span><p class="stat-label">Planning tools in one workspace</p></article>
+    <article class="stat-card"><span class="stat-value">6</span><p class="stat-label">Connected pages for your money habits</p></article>
+    <article class="stat-card"><span class="stat-value">4</span><p class="stat-label">Currencies in the quick converter</p></article>
+  </div>
+</section>
+
+<section aria-labelledby="gallery-title" class="wrapper section-block py-4 py-lg-5" id="inspiration">
                             <p class="eyebrow">Give your money a purpose</p><h2 id="gallery-title">Your everyday inspiration</h2>
                             <p>Every category is a chance to plan with intention.</p>
                             <div class="carousel slide bootstrap-gallery" id="inspirationCarousel">

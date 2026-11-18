@@ -8,11 +8,12 @@
 <link href="../vendor/bootstrap.min.css" rel="stylesheet"/><link href="../css/style.css" rel="stylesheet"/>
 
 <script src="../vendor/jquery-4.0.0.min.js"></script>
-<script defer src="../js/validation.js"></script>
-<script defer src="../js/calc.js"></script>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/><script defer="" src="../js/ui.js"></script><script defer src="../js/advanced.js"></script>
-<script defer src="../js/script.js"></script>
-<script defer src="../js/jquery-ux.js"></script><link rel="icon" href="data:,"/>
+<script defer src="../js/storage.js?v=bill-drafts-1"></script>
+<script defer src="../js/validation.js?v=bill-drafts-1"></script>
+<script defer src="../js/calc.js?v=bill-drafts-1"></script>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><script defer="" src="../js/ui.js?v=bill-drafts-1"></script><script defer src="../js/advanced.js?v=bill-drafts-1"></script>
+<script defer src="../js/script.js?v=bill-drafts-1"></script>
+<script defer src="../js/jquery-ux.js?v=bill-drafts-1"></script><link rel="icon" href="data:,"/>
 </head>
 <body class="page-layout" data-page="expenses"><a class="skip-link" href="#main-content">Skip to content</a>
 <header id="main-header">
@@ -34,7 +35,7 @@
 </ul>
 </div>
 </nav></header>
-<aside aria-label="Planner sidebar" class="page-sidebar"><p class="eyebrow">Your workspace</p><h2>One step closer.</h2><nav aria-label="Planner sections"><ul class="sidebar-links"><li><a href="index.html">Monthly budget</a></li><li><a aria-current="page" href="expenses.html">Daily expenses</a></li><li><a href="bills.html">Bills &amp; debt</a></li><li><a href="save.html">Savings goals</a></li><li><a href="account.html">Sign up / Log in</a></li><li><a href="profile.html">My profile</a></li></ul></nav><div class="sidebar-note"><strong>A little, often.</strong><p>Review your plan. Record your spending. Celebrate your progress.</p><a href="index.html#inspiration">Explore the inspiration gallery →</a></div><p class="demo-note">Your plan is saved in this browser. Tables also include example data.</p></aside><main id="main-content">
+<aside aria-label="Planner sidebar" class="page-sidebar"><p class="eyebrow">Your workspace</p><h2>One step closer.</h2><nav aria-label="Planner sections"><ul class="sidebar-links"><li><a href="index.html">Monthly budget</a></li><li><a aria-current="page" href="expenses.html">Daily expenses</a></li><li><a href="bills.html">Bills &amp; debt</a></li><li><a href="save.html">Savings goals</a></li><li><a href="account.html">Sign up / Log in</a></li><li><a href="profile.html">My profile</a></li></ul></nav><div class="sidebar-note"><strong>A little, often.</strong><p>Review your plan. Record your spending. Celebrate your progress.</p><a href="index.html#inspiration">Explore the inspiration gallery →</a></div><p class="demo-note">Your expenses are saved in this browser. Log in to keep them in your own account.</p></aside><main id="main-content">
 <section id="wallpaper_expense">
 <section aria-labelledby="expense-title" class="page-intro compact-intro wrapper">
 <div class="intro-copy">
@@ -109,7 +110,7 @@
 <div class="section-heading">
 <div>
 <p class="eyebrow">Your purchases</p><h2 id="log-title">Expense log</h2></div>
-<button class="btn btn-outline-primary quiet-button" id="clear-expenses" type="button">Clear added entries</button>
+<button class="btn btn-outline-primary quiet-button" id="clear-expenses" type="button">Clear expenses</button>
 </div>
 
 <div class="expense-filters">
@@ -119,7 +120,7 @@
   </div>
   <p id="filter-summary" role="status" aria-live="polite"></p>
 </div>
-<p id="expense-empty" class="search-empty" hidden>No purchases match. Try a different search or category.</p>
+<p id="expense-empty" class="search-empty">No expenses yet. Add your first purchase above.</p>
 <button class="copy-button" type="button" data-copy-target="#filter-summary">Copy filtered summary</button>
 <div class="table-wrap">
 <table class="expense-table">
@@ -127,12 +128,7 @@
 <thead>
 <tr><th scope="col">Date</th><th scope="col">Item</th><th scope="col">Category</th><th scope="col">Payment</th><th scope="col">Amount</th><th scope="col"><span class="visually-hidden">Action</span></th></tr>
 </thead>
-<tbody id="expense-rows">
-<tr data-amount="4200" data-category="Food"><td>Sep 12</td><td>Lunch</td><td><span class="category-tag food-tag">Food</span></td><td>Card</td><td>₸4,200</td><td><span class="locked-label">Example</span></td></tr>
-<tr data-amount="2300" data-category="Transport"><td>Sep 12</td><td>Taxi</td><td><span class="category-tag transport-tag">Transport</span></td><td>Card</td><td>₸2,300</td><td><span class="locked-label">Example</span></td></tr>
-<tr data-amount="2150" data-category="Food"><td>Sep 12</td><td>Coffee and snack</td><td><span class="category-tag food-tag">Food</span></td><td>Cash</td><td>₸2,150</td><td><span class="locked-label">Example</span></td></tr>
-<tr data-amount="1500" data-category="Fun"><td>Sep 12</td><td>Music subscription</td><td><span class="category-tag fun-tag">Fun</span></td><td>Card</td><td>₸1,500</td><td><span class="locked-label">Example</span></td></tr>
-</tbody>
+<tbody id="expense-rows"></tbody>
 </table>
 </div>
 </section>

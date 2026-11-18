@@ -16,6 +16,16 @@
     return saved.filter(user => user && ['name', 'email', 'phone', 'password'].every(key => typeof user[key] === 'string'));
   }
 
+  function logout(notice) {
+    try {
+      window.LedgerStorage.logActivity('Logged out');
+      localStorage.removeItem(sessionKey);
+      window.location.assign('account.html');
+    } catch (_) {
+      notice.textContent = 'We could not log out. Allow local storage in your browser and try again.';
+    }
+  }
+
   function setError(input, message) {
     const error = document.getElementById(input.id + '-error');
     if (error) error.textContent = message;
@@ -110,6 +120,7 @@
           return;
         }
         localStorage.setItem(sessionKey, email);
+        try { sessionStorage.setItem('violet-ledger-login-event', email); } catch (_) { /* Login also works without tab storage. */ }
         window.location.assign('profile.html');
       } catch (_) {
         message.textContent = 'We could not open your local account. Allow local storage in your browser and try again.';
@@ -117,13 +128,62 @@
     });
   }
 
+  const dashboard = document.getElementById('account-dashboard');
+  if (dashboard && window.LedgerStorage.isSignedIn) {
+    try {
+      const storage = window.LedgerStorage;
+      const user = readUsers().find(account => normalizeEmail(account.email) === storage.owner);
+      if (user) {
+        document.getElementById('account-guest').hidden = true;
+        dashboard.hidden = false;
+        document.getElementById('account-title').textContent = 'Your account.';
+        document.getElementById('account-intro-label').textContent = 'Your workspace';
+        document.getElementById('account-intro-text').hidden = true;
+        document.getElementById('account-welcome').textContent = 'Welcome back, ' + user.name + '.';
+        document.getElementById('account-email').textContent = user.email;
+        document.getElementById('account-logout').addEventListener('click', () => logout(document.getElementById('account-status')));
+
+        function renderActivity() {
+          const list = document.getElementById('account-activity');
+          const saved = storage.read('violet-ledger-activity', []);
+          const entries = Array.isArray(saved) ? saved.filter(entry => {
+            return entry && typeof entry.message === 'string' && typeof entry.time === 'string' && Number.isFinite(Date.parse(entry.time));
+          }).slice(0, 100) : [];
+          list.replaceChildren();
+          entries.forEach(entry => {
+            const item = document.createElement('li');
+            const message = document.createElement('p');
+            message.textContent = entry.message;
+            const time = document.createElement('time');
+            time.dateTime = entry.time;
+            time.textContent = new Date(entry.time).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' });
+            item.append(message, time);
+            list.append(item);
+          });
+          document.getElementById('account-activity-empty').hidden = entries.length > 0;
+          list.hidden = entries.length === 0;
+        }
+        renderActivity();
+        window.addEventListener('storage', event => {
+          if (event.key === 'violet-ledger-activity:' + encodeURIComponent(storage.owner) || event.key === null) renderActivity();
+        });
+        window.addEventListener('focus', renderActivity);
+        window.addEventListener('pageshow', renderActivity);
+        document.addEventListener('ledger:activity', renderActivity);
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) renderActivity(); });
+      }
+    } catch (_) {
+      document.getElementById('signup-message').textContent = 'Your account could not be loaded. Check your browser storage settings.';
+    }
+  }
+
   const profile = document.getElementById('profile-details');
   if (profile) {
     const notice = document.getElementById('profile-notice');
     try {
-      const email = localStorage.getItem(sessionKey);
+      const email = window.LedgerStorage.owner;
       const user = readUsers().find(account => normalizeEmail(account.email) === email);
-      if (user) {
+      if (user && window.LedgerStorage.isSignedIn) {
         document.getElementById('profile-guest').hidden = true;
         profile.hidden = false;
         document.getElementById('profile-name').textContent = user.name;
@@ -133,31 +193,27 @@
         const joined = new Date(user.createdAt);
         document.getElementById('profile-joined').textContent = Number.isNaN(joined.getTime()) ? 'Saved in this browser' : joined.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 
-        document.getElementById('logout-button').addEventListener('click', () => {
-          try {
-            localStorage.removeItem(sessionKey);
-            profile.hidden = true;
-            document.getElementById('profile-guest').hidden = false;
-            notice.textContent = 'You are logged out. Your demo account is still saved in this browser.';
-            document.getElementById('profile-login-link').focus();
-          } catch (_) {
-            notice.textContent = 'We could not log out. Allow local storage in your browser and try again.';
-          }
-        });
+        document.getElementById('logout-button').addEventListener('click', () => logout(notice));
       }
     } catch (_) {
       notice.textContent = 'Your local account could not be loaded. Check your browser storage settings.';
     }
   }
 
-  // Budget records belong to this browser, independently of the classroom demo account.
+  // The storage helper selects this account's records, or the separate guest workspace.
   const browserSummary = document.getElementById('browser-summary');
   if (browserSummary) {
     try {
-      const budget = JSON.parse(localStorage.getItem('violet-ledger-budget') || '{}');
-      const expenses = JSON.parse(localStorage.getItem('violet-ledger-expenses') || '[]');
-      const income = Number(budget?.total_sum);
-      document.getElementById('profile-income').textContent = budget?.total_sum !== undefined && Number.isFinite(income) && income >= 0 ? money(income) : 'No budget yet';
+      const storage = window.LedgerStorage;
+      const budget = storage.read('violet-ledger-budget', {});
+      const expenses = storage.read('violet-ledger-expenses', []);
+      const incomeText = String(budget?.total_sum ?? '').trim();
+      const income = Number(incomeText.replace(/,/g, ''));
+      document.getElementById('workspace-title').textContent = storage.isSignedIn ? 'Your account workspace' : 'Guest workspace';
+      document.getElementById('workspace-note').textContent = storage.isSignedIn
+        ? 'These records belong to your account in this browser. They stay saved when you log out.'
+        : 'These are your guest records in this browser. Log in to use a separate account workspace.';
+      document.getElementById('profile-income').textContent = incomeText && Number.isFinite(income) && income >= 0 ? money(income) : 'No budget yet';
       document.getElementById('profile-expense-count').textContent = Array.isArray(expenses) ? String(expenses.filter(entry => entry && typeof entry.item === 'string' && Number(entry.amount) > 0).length) : '0';
     } catch (_) {
       document.getElementById('profile-income').textContent = 'Unavailable';

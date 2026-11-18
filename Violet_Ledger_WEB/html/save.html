@@ -9,11 +9,12 @@
 <link href="../vendor/bootstrap.min.css" rel="stylesheet"/><link href="../css/style.css" rel="stylesheet"/>
 
 <script src="../vendor/jquery-4.0.0.min.js"></script>
-<script defer src="../js/validation.js"></script>
-<script defer src="../js/calc.js"></script>
-<script defer="" src="../js/ui.js"></script><script defer src="../js/advanced.js"></script>
-<script defer src="../js/script.js"></script>
-<script defer src="../js/jquery-ux.js"></script><link rel="icon" href="data:,"/>
+<script defer src="../js/storage.js?v=bill-drafts-1"></script>
+<script defer src="../js/validation.js?v=bill-drafts-1"></script>
+<script defer src="../js/calc.js?v=bill-drafts-1"></script>
+<script defer="" src="../js/ui.js?v=bill-drafts-1"></script><script defer src="../js/advanced.js?v=bill-drafts-1"></script>
+<script defer src="../js/script.js?v=bill-drafts-1"></script>
+<script defer src="../js/jquery-ux.js?v=bill-drafts-1"></script><link rel="icon" href="data:,"/>
 </head>
 <body class="page-layout" data-page="savings"><a class="skip-link" href="#main-content">Skip to content</a>
 <header id="main-header">
@@ -95,6 +96,23 @@
 </div>
 <button class="btn btn-outline-primary quiet-button" id="clear-goals" type="button">Clear all records</button>
 </div>
+<section aria-labelledby="goal-update-title" class="panel p-4 goal-update-panel" id="goal-update-panel" hidden>
+<p class="eyebrow">Track your progress</p>
+<h3 id="goal-update-title">Update saved amount</h3>
+<p>Goal: <strong id="goal-update-name"></strong></p>
+<form id="goal-update-form" novalidate>
+<label>Total saved so far (₸)
+<input class="form-control" id="goal-update-amount" type="text" inputmode="decimal" aria-describedby="goal-update-help"/>
+</label>
+<p class="form-note" id="goal-update-help">Enter the full amount currently saved. This replaces the old total; you can increase it or correct it downward.</p>
+<div class="goal-edit-actions">
+<button class="btn btn-primary bootstrap-primary-like" type="submit">Save amount</button>
+<button class="btn btn-outline-primary" id="cancel-goal-update" type="button">Cancel</button>
+</div>
+</form>
+</section>
+<p aria-live="polite" class="form-note" id="goals-table-message" role="status"></p>
+<p class="form-note" id="goals-empty" hidden>No savings goals yet. Add your first goal above.</p>
 <div class="table-wrap">
 <table class="budget-table">
 <caption>Current and achieved saving plans</caption>
@@ -103,7 +121,7 @@
 <th scope="col">Name</th>
 <th scope="col">Ideal amount</th>
 <th scope="col">Actual amount</th>
-<th scope="col">Status</th><th scope="col">Target date</th>
+<th scope="col">Status</th><th scope="col">Target date</th><th scope="col">Actions</th>
 </tr>
 </thead>
 <tbody id="savings-rows">
@@ -139,7 +157,7 @@
 <div class="dot-icon">★</div>
 <div>
 <strong>Consistently grow the amount</strong>
-<p>Add small amounts steadily each week or month.</p>
+<p>Use Update saved amount in the table to record your new total each week or month.</p>
 </div>
 </li>
 <li>
