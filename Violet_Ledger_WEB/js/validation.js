@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  const formIds = ['budget-form', 'expense-form', 'record-bill-form', 'pay-bill-form', 'savings-goal-form', 'coach-form', 'feedback-form'];
+  const formIds = ['budget-form', 'expense-form', 'record-bill-form', 'pay-bill-form', 'savings-goal-form', 'goal-update-form', 'coach-form', 'feedback-form'];
   const fieldRules = {
     'total_sum': { type: 'amount', optional: true, allowZero: true },
     'rent': { type: 'amount', optional: true, allowZero: true },
@@ -19,12 +19,13 @@
     'bill-category': { type: 'choice', options: ['Loans', 'Credits', 'Debts'] },
     'bill-payment': { type: 'choice', options: ['Card', 'Cash', 'Transfer'] },
     'bill-amount': { type: 'amount' },
-    'payment-bill-name': { type: 'text', label: 'the bill name', limit: 40 },
+    'payment-bill-name': { type: 'selection', label: 'an unpaid bill' },
     'payment-bill-amount': { type: 'amount' },
     'goal-date': { type: 'date' },
     'goal-name': { type: 'text', label: 'a goal name', limit: 60 },
     'goal-actual': { type: 'amount', allowZero: true },
     'goal-ideal': { type: 'amount' },
+    'goal-update-amount': { type: 'amount', allowZero: true },
     'coach-name': { type: 'text', label: 'your name', limit: 40 },
     'coach-goal': { type: 'text', label: 'a savings goal', limit: 60 },
     'coach-amount': { type: 'amount' },
@@ -66,6 +67,7 @@
       if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== value) return 'Please choose a valid date.';
     }
     if (rule.type === 'choice' && !rule.options.includes(value)) return 'Please choose an option from the list.';
+    if (rule.type === 'selection' && !value) return 'Please choose ' + rule.label + '.';
     if (rule.type === 'months') {
       if (!/^\d+$/.test(value) || Number(value) < 1 || Number(value) > 120) return 'Enter a whole number of months from 1 to 120.';
     }

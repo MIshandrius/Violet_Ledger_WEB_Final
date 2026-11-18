@@ -41,7 +41,7 @@ $(function () {
 
   // Form handlers already show their results beside each form.
   $(document).on('click', '.delete-entry', () => notify('Expense removed from your log.'));
-  $('#clear-expenses, #clear-bills, #clear-goals').on('click', () => notify('Your records have been updated.'));
+  $('#clear-expenses').on('click', () => notify('Your records have been updated.'));
 
   async function copyText(text) {
     if (navigator.clipboard && window.isSecureContext) {
